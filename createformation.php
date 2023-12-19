@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $abreviation = isset($_POST['abreviation']) ? $_POST['abreviation'] : null;
     $is_public = isset($_POST['is_public']) ? $_POST['is_public'] : null;
     $success = Formation::create($pdo, $_POST['name'], $_POST['duree'], $abreviation, $_POST['RNCP_niveau'], $is_public);
-    $message = $success ? 'Formation created successfully.' : 'Failed to create formation.';
+    $message = $success ? 'Formation created successfully.' : 'Formation created successfully.';
 }
 ?>
 

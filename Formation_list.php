@@ -18,7 +18,7 @@ $formations = Formation::getAll($pdo);
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-sm-12">
+        <div class="col-sm-16">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -31,19 +31,28 @@ $formations = Formation::getAll($pdo);
                     </tr>
                 </thead>
                 <tbody>
-        <?php
-            foreach ($formations as $formation) {
-                echo '<tr>';
-                echo '<td>' . $formation->getId() . '</td>'; 
-                echo '<td>' . $formation->getName() . '</td>';
-                echo '<td>' . $formation->getduree() . '</td>';
-                echo '<td>' . $formation->getabreviation() . '</td>';
-                echo '<td>' . $formation->getRNCP_niveau() . '</td>';
-                echo '<td>' . $formation->getis_public() . '</td>';
-                echo '</tr>';
-            }
-            ?>
-        </tbody>
+                <?php
+    foreach ($formations as $formation) {
+        echo '<tr>';
+        echo '<td>' . $formation->getId() . '</td>'; 
+        echo '<td>' . $formation->getName() . '</td>';
+        echo '<td>' . $formation->getduree() . '</td>';
+        echo '<td>' . $formation->getabreviation() . '</td>';
+        echo '<td>' . $formation->getRNCP_niveau() . '</td>';
+        echo '<td>' . $formation->getis_public() . '</td>';
+        echo '<td><form method="POST" action="deleteformation.php" style="display: inline;">
+                  <input type="hidden" name="id" value="' . $formation->getId() . '">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+              <form method="POST" action="modifyformation.php" style="display: inline;">
+                  <input type="hidden" name="id" value="' . $formation->getId() . '">
+                  <button type="submit" class="btn btn-primary">Modify</button>
+              </form>
+            </td>';
+        echo '</tr>';
+    }
+?>
+        </tbody>                                            
     </table>
     <div class="text-center mt-3">
     <a href="createformation.php" class="btn btn-primary">créer une nouvelle formation </a>
