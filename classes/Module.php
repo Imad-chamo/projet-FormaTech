@@ -4,13 +4,13 @@
 class Module {
     private $id; 
     private $name;
-    private $durée;
+    private $duree;
     private $module_id;
 
-    public function __construct($id, $name, $duration, $formation_id) {
+    public function __construct($id, $name, $duree, $module_id) {
         $this->id = $id;
         $this->name = $name;
-        $this->durée = $durée;
+        $this->duree = $duree;
         $this->module_id = $module_id;
     }
 

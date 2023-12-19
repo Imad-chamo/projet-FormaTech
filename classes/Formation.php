@@ -6,18 +6,18 @@ include 'classes/database.php';
 class Formation {
     private $id;
     private $name;
-    private $durée;
-    private $abréviation;
-    private $RNCP_niveau;
-    private $nombre_module;
+    private $duree;
+    private $abrv;
+    private $rncp;
+    private $nb_module;
 
-    public function __construct($id, $name, $durée, $abréviation, $RNCP_niveau, $nombre_module) {
+    public function __construct($id, $name, $duree, $abrv, $rncp, $nb_module) {
         $this->id = $id;
         $this->name = $name;
-        $this->durée = $durée;
-        $this->abréviation = $abréviation;
-        $this->RNCP_niveau = $RNCP_niveau;
-        $this->nombre_module = $nombre_module;
+        $this->duree = $duree;
+        $this->abrv = $abrv;
+        $this->rncp = $rncp;
+        $this->nb_module = $nb_module;
     }
 
     public static function getAll($pdo) {
