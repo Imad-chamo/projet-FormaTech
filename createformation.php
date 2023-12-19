@@ -1,8 +1,15 @@
 <?php
 include 'classes/Formation.php';
+include_once 'classes/Database.php';
+
+$pdo = Database::getPDO();
+$message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    Formation::create($pdo, $_POST['name'], $_POST['duree'], $_POST['abreviation'], $_POST['RNCP_niveau'], $_POST['is_public']);
+    $abreviation = isset($_POST['abreviation']) ? $_POST['abreviation'] : null;
+    $is_public = isset($_POST['is_public']) ? $_POST['is_public'] : null;
+    $success = Formation::create($pdo, $_POST['name'], $_POST['duree'], $abreviation, $_POST['RNCP_niveau'], $is_public);
+    $message = $success ? 'Formation created successfully.' : 'Failed to create formation.';
 }
 ?>
 
@@ -40,3 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit" class="btn btn-primary mt-3">Create Formation</button>
     </form>
 </div>
+<?php if (!empty($message)) : ?>
+    <div class="alert alert-info">
+        <?php echo $message; ?>
+    </div>
+<?php endif; ?>

@@ -1,7 +1,7 @@
 <?php
 
 include 'bdd/config.php';
-include 'classes/database.php';
+include 'classes/Database.php';
 
 class Formation {
     private $id;
@@ -58,7 +58,7 @@ class Formation {
         return $this->is_public;
     }
 
-    public static function create_formation($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
+    public static function create($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
         $sql = "INSERT INTO formations (name, duree, abreviation, RNCP_niveau, is_public) VALUES (:name, :duree, :abreviation, :RNCP_niveau, :is_public)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([

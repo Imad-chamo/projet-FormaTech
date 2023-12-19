@@ -1,8 +1,10 @@
 <?php
 include 'classes/Formation.php';
+include_once 'classes/Database.php';
+
+$pdo = Database::getPDO();
 
 $formations = Formation::getAll($pdo);
-
 ?>
 
 <!DOCTYPE html>
@@ -43,5 +45,9 @@ $formations = Formation::getAll($pdo);
             ?>
         </tbody>
     </table>
+    <div class="text-center mt-3">
+    <a href="createformation.php" class="btn btn-primary">créer une nouvelle formation </a>
+</div>
+</div>
 </body>
 </html>
