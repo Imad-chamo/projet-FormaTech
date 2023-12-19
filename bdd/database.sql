@@ -10,7 +10,7 @@ CREATE TABLE formations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
     duree INT,
-    abréviation VARCHAR(255),
+    abreviation VARCHAR(255),
     RNCP_niveau INT,
     is_public BOOLEAN
 );

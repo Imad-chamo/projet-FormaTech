@@ -35,7 +35,7 @@ $formations = Formation::getAll($pdo);
                 echo '<td>' . $formation->getId() . '</td>'; 
                 echo '<td>' . $formation->getName() . '</td>';
                 echo '<td>' . $formation->getduree() . '</td>';
-                echo '<td>' . $formation->getAbréviation() . '</td>';
+                echo '<td>' . $formation->getabreviation() . '</td>';
                 echo '<td>' . $formation->getRNCP_niveau() . '</td>';
                 echo '<td>' . $formation->getis_public() . '</td>';
                 echo '</tr>';

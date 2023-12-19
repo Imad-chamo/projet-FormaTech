@@ -9,7 +9,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ml-auto mr-6" href="#"><img src="imgs/logo.png" alt="" style="width: 100px; height: 100px;"></a>
+  <a class="navbar-brand ml-auto mr-6" href="formation_list.php"><img src="imgs/logo.png" alt="" style="width: 100px; height: 100px;"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

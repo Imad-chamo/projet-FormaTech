@@ -77,12 +77,10 @@ class Formation {
             $stmt->execute([':id' => $this->id]);
             $modules = [];
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $modules[] = new Module($row['id'], $row['name'], $row['duree'], $row['abreviation'], $row['RNCP_niveau'], $row['nombre_module']);
+                $modules[] = new Module($row['id'], $row['name'], $row['duree'], $row['abreviation'], $row['RNCP_niveau'], $row['is_public']);
             }
             return $modules;
         }
-
-
 }
 
 

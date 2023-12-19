@@ -2,7 +2,7 @@
 include 'classes/Formation.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    Formation::create($pdo, $_POST['name'], $_POST['duree'], $_POST['abréviation'], $_POST['RNCP_niveau'], $_POST['is_public']);
+    Formation::create($pdo, $_POST['name'], $_POST['duree'], $_POST['abreviation'], $_POST['RNCP_niveau'], $_POST['is_public']);
 }
 ?>
 
