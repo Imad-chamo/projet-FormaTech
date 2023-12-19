@@ -6,7 +6,6 @@ include 'classes/database.php';
 class Formation {
     private $id;
     private $name;
-
     private $duree;
     private $abreviation;
     private $RNCP_niveau;
