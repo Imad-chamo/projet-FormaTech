@@ -9,10 +9,10 @@ CREATE TABLE employees  (
 CREATE TABLE formations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255),
-    durée INT,
+    duree INT,
     abréviation VARCHAR(255),
     RNCP_niveau INT,
-    public BOOLEAN
+    is_public BOOLEAN
 );
 
 CREATE TABLE modules (
@@ -22,6 +22,7 @@ CREATE TABLE modules (
     formation_id INT UNSIGNED,
     FOREIGN KEY (formation_id) REFERENCES formations(id)
 );
+
 
 
 
