@@ -2,12 +2,10 @@
 include 'classes/Formation.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Form was submitted - create new formation
     Formation::create($pdo, $_POST['name'], $_POST['duree'], $_POST['abréviation'], $_POST['RNCP_niveau'], $_POST['is_public']);
 }
 ?>
 
-<!-- Include Bootstrap CSS -->
 
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
