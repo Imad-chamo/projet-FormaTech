@@ -2,37 +2,42 @@
 include 'classes/Formation.php';
 
 $formations = Formation::getAll($pdo);
+
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>Formation List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <?php include 'header.php'; ?>
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Duration</th>
-                <th>Abbreviation</th>
-                <th>RNCP Level</th>
-                <th>Module Count</th>
-            </tr>
-        </thead>
-        <tbody>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom </th>
+                        <th>Durée de formation</th>
+                        <th>Abréviation</th>
+                        <th>niveau RNCP</th>
+                        <th>privee / public </th>
+                    </tr>
+                </thead>
+                <tbody>
         <?php
             foreach ($formations as $formation) {
                 echo '<tr>';
-                echo '<td>' . $formation->id . '</td>'; 
-                echo '<td>' . $formation->name . '</td>';
-                echo '<td>' . $formation->durée . '</td>';
-                echo '<td>' . $formation->abréviation . '</td>';
-                echo '<td>' . $formation->RNCP_niveau . '</td>';
-                echo '<td>' . $formation->nombre_module . '</td>';
+                echo '<td>' . $formation->getId() . '</td>'; 
+                echo '<td>' . $formation->getName() . '</td>';
+                echo '<td>' . $formation->getduree() . '</td>';
+                echo '<td>' . $formation->getAbréviation() . '</td>';
+                echo '<td>' . $formation->getRNCP_niveau() . '</td>';
+                echo '<td>' . $formation->getis_public() . '</td>';
                 echo '</tr>';
             }
             ?>
