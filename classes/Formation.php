@@ -61,48 +61,18 @@ class Formation {
     public static function create($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
         $sql = "INSERT INTO formations (name, duree, abreviation, RNCP_niveau, is_public) VALUES (:name, :duree, :abreviation, :RNCP_niveau, :is_public)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
+        if($stmt->execute([
             ':name' => $name, 
             ':duree' => $duree,
             ':abreviation' => $abreviation,
             ':RNCP_niveau' => $RNCP_niveau,
             ':is_public' => $is_public,
-        ]);
+        ])) {
+            return "Formation created successfully!";
+        }else{
+            return "error: ".$stmt->errorInfo()[2];
+        };
     }
-
-    public static function delete($pdo, $id) {
-        $sql = "DELETE FROM formations WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':id' => $id
-        ]);
-    }
-    
-    public static function modify($pdo, $id, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
-        $sql = "UPDATE formations SET name = :name, duree = :duree, abreviation = :abreviation, RNCP_niveau = :RNCP_niveau, is_public = :is_public WHERE id = :id";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':id' => $id,
-            ':name' => $name, 
-            ':duree' => $duree,
-            ':abreviation' => $abreviation,
-            ':RNCP_niveau' => $RNCP_niveau,
-            ':is_public' => $is_public,
-        ]);
-    }
-
-    
-
-    public function getModules(){
-            $sql = "SELECT * FROM modules WHERE formation_id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([':id' => $this->id]);
-            $modules = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $modules[] = new Module($row['id'], $row['name'], $row['duree'], $row['abreviation'], $row['RNCP_niveau'], $row['is_public']);
-            }
-            return $modules;
-        }
 }
 
 
