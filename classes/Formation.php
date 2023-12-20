@@ -1,8 +1,4 @@
 <?php
-
-include 'bdd/config.php';
-include 'classes/Database.php';
-
 class Formation {
     private $id;
     private $name;

@@ -1,6 +1,6 @@
 <?php
-include 'classes/Formation.php';
-include_once 'classes/Database.php';
+require_once 'classes/Autoloader.php';
+Autoloader::register();
 
 $pdo = Database::getPDO();
 $message = '';
