@@ -9,7 +9,7 @@ class Etudiant {
     private $email;
     private $date_naissance;
     private $num_etudiant;
-    private $promo;
+    private $promo =[];
     public function __construct($id, $prenom, $nom, $date, $email, $numEtud, $promo) {
         $this->id = $id;
         $this->prenom = $prenom;
@@ -28,7 +28,7 @@ class Etudiant {
         $etudiants = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $etudiants[] = new Etudiant($row['id'], $row['prenom'], $row['nom'],$row['email'], $row['date'], $row['numEtud'], $row['promo']);
+            $etudiants[] = new Etudiant($row['id'], $row['prenom'], $row['nom'],$row['email'], $row['date_naissance'], $row['num_etudiant'], $row['promo']);
         }
 
         return $etudiants;
@@ -62,17 +62,18 @@ class Etudiant {
         return $this->promo;
     }
 
-    public function creerEtudiant($pdo, $prenom, $nom, $email, $dateNaissance, $numEtudiant) {
-        $sql = "INSERT INTO etudiants (prenom, nom, email, dateNaissance, numEtudiant) VALUES (:prenom, :nom, :email, :dateNaissance, :numEtudiant)";
+    public static function create($pdo, $prenom, $nom, $email, $dateNaissance, $numEtudiant,$promo) {
+        $sql = "INSERT INTO etudiants (prenom, nom, email, date_naissance, num_etudiant, promo) VALUES (:prenom, :nom, :email, :date_naissance, :num_etudiant, :promo)";
         $stmt = $pdo->prepare($sql);
         if($stmt->execute([
             ':prenom' => $prenom,
             ':nom' => $nom,
             ':email' => $email,
-            ':dateNaissance' => $dateNaissance,
-            ':numEtudiant' => $numEtudiant
+            ':date_naissance' => $dateNaissance,
+            ':num_etudiant' => $numEtudiant,
+            ':promo' => $promo
         ])) {
-            return "Formation created successfully!";
+            return "Etudiant created successfully!";
         }else{
             return "error: ".$stmt->errorInfo()[2];
         };
