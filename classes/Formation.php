@@ -78,16 +78,17 @@ class Formation {
         ]);
     }
     
-    public static function modify($pdo, $id, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
+    public static function update($pdo, $id, $name, $duree, $abreviation, $RNCP_niveau, $is_public)
+    {
         $sql = "UPDATE formations SET name = :name, duree = :duree, abreviation = :abreviation, RNCP_niveau = :RNCP_niveau, is_public = :is_public WHERE id = :id";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             ':id' => $id,
-            ':name' => $name, 
+            ':name' => $name,
             ':duree' => $duree,
             ':abreviation' => $abreviation,
             ':RNCP_niveau' => $RNCP_niveau,
-            ':is_public' => $is_public,
+            ':is_public' => $is_public
         ]);
     }
 
