@@ -53,6 +53,9 @@ class Formation {
     public function getis_public() {
         return $this->is_public;
     }
+    public function getModules() {
+        return $this->modules;
+    }
 
     public static function create($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
         $sql = "INSERT INTO formations (name, duree, abreviation, RNCP_niveau, is_public) VALUES (:name, :duree, :abreviation, :RNCP_niveau, :is_public)";

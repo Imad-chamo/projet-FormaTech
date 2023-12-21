@@ -3,17 +3,22 @@
 
 class Module {
     private $id; 
-    private $name;
+    private $nom;
     private $duree;
-    private $module_id;
+    private $formations;
 
-    public function __construct($id, $name, $duree, $module_id) {
+    public function __construct($id, $nom, $duree, $formation) {
         $this->id = $id;
-        $this->name = $name;
+        $this->nom = $nom;
         $this->duree = $duree;
-        $this->module_id = $module_id;
+        $this->formations = $formation;
     }
-
+    public function getNom(){
+        return $this->nom;
+    }
+    public function getFormations() {
+        return $this->formations;
+    }
 }
 
 

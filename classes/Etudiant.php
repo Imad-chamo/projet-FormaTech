@@ -1,7 +1,4 @@
 <?php
-include 'bdd/config.php';
-include 'classes/Database.php';
-
 class Etudiant {
     private $id;
     private $prenom;
