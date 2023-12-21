@@ -20,6 +20,7 @@ $formations = Formation::getAll($pdo);
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php foreach ($formations as $formation) : ?>
                         <tr>
                             <td><?= $formation->getId() ?></td>
@@ -29,7 +30,7 @@ $formations = Formation::getAll($pdo);
                             <td><?= $formation->getRNCP_niveau() ?></td>
                             <td><?= ($formation->getis_public() ? 'Public' : 'Private') ?></td>
                             <td>
-                                <a href="deleteformation.php?id=<?= $formation->getId() ?>" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this formation?')">Delete</a>
+                                <a href="deleteformation.php?id=<?= $formation->getId() ?>" class="btn btn-danger" >Delete</a>
                                 <a href="modifyformation.php?id=<?= $formation->getId() ?>" class="btn btn-primary" style="margin-left: 10px;">Modify</a>
                             </td>
                         </tr>
@@ -42,6 +43,5 @@ $formations = Formation::getAll($pdo);
         </div>
     </div>
 </div>
-
 
 <?php include '../includes/footer.php'; ?>

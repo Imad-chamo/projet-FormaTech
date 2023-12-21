@@ -90,10 +90,9 @@ class Formation
     {
         $sql = "DELETE FROM formations WHERE id = :id";
         $stmt = $pdo->prepare($sql);
-        return $stmt->execute([
-            ':id' => $id
-        ]);
+        return $stmt->execute([':id' => htmlspecialchars($id)]);
     }
+    
 
     public static function getFormationById($pdo, $id)
     {

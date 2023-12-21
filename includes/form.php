@@ -45,16 +45,8 @@
  
                 <button type="submit" class="btn btn-primary">
                     <?php echo $type === 'creer' ? 'Create Formation' : 'Update Formation'; ?>
-                    <?php 
-                        // if ($type == 'creer'){
-                        //     echo 'Create Formation';
-                        // }else{
-                        //     echo 'Update Formation';
-                        // } 
-                    ?>
                 </button>
-
-                 <a href="Formation_list.php" class="btn btn-primary">back home</a>
+        <a href="Formation_list.php" class="btn btn-primary">back home</a>
             </form>
         </div>
     </div>

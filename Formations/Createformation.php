@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+include '../includes/header.php';
 
 $pdo = Database::getPDO();
 $message = '';
@@ -24,7 +24,7 @@ if (!empty($message)) {
 
 Formation::renderForm('creer',$existingFormation);
 
-include 'footer.php'; 
+include '../includes/footer.php'; 
 ?>
 
 <?php if (!empty($message)) : ?>
