@@ -1,6 +1,5 @@
 <?php
-include 'classes/Formation.php';
-include_once 'classes/Database.php';
+include '../includes/header.php';
 
 $pdo = Database::getPDO();
 

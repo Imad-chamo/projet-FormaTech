@@ -1,5 +1,5 @@
 <?php
-include 'bdd/local_config.php';
+include '../bdd/local_config.php';
 
 class Database
 {

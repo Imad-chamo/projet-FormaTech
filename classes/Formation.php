@@ -1,9 +1,10 @@
 <?php
 
-include 'bdd/config.php';
-include 'classes/Database.php';
+include_once '../bdd/config.php';
+// include_once 'classes/Database.php';
 
-class Formation {
+class Formation
+{
     private $id;
     private $name;
     private $duree;
@@ -11,7 +12,8 @@ class Formation {
     private $RNCP_niveau;
     private $is_public;
 
-    public function __construct($id, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
+    public function __construct($id, $name, $duree, $abreviation, $RNCP_niveau, $is_public)
+    {
         $this->id = $id;
         $this->name = $name;
         $this->duree = $duree;
@@ -20,92 +22,127 @@ class Formation {
         $this->is_public = $is_public;
     }
 
-    public static function getAll($pdo) {
+    public static function getAll($pdo)
+    {
         $sql = "SELECT * FROM formations";
         $stmt = $pdo->query($sql);
-        
-        // return $stmt->fetchAll(PDO::FETCH_CLASS,"Formation");
+
         $formations = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $formations[] = new Formation($row['id'], $row['name'], $row['duree'], $row['abreviation'], $row['RNCP_niveau'], $row['is_public']);
+            $formations[] = new Formation(
+                $row['id'],
+                htmlspecialchars($row['name']),
+                htmlspecialchars($row['duree']),
+                htmlspecialchars($row['abreviation']),
+                htmlspecialchars($row['RNCP_niveau']),
+                htmlspecialchars($row['is_public'])
+            );
         }
 
         return $formations;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
-    public function getduree(){
+    public function getduree()
+    {
         return $this->duree;
     }
 
-    public function getAbreviation() {
+    public function getAbreviation()
+    {
         return $this->abreviation;
     }
 
-    public function getRNCP_niveau() {
+    public function getRNCP_niveau()
+    {
         return $this->RNCP_niveau;
     }
 
-    public function getis_public() {
+    public function getis_public()
+    {
         return $this->is_public;
     }
 
-    public static function create($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public) {
+    public static function create($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public)
+    {
         $sql = "INSERT INTO formations (name, duree, abreviation, RNCP_niveau, is_public) VALUES (:name, :duree, :abreviation, :RNCP_niveau, :is_public)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':name' => $name, 
-            ':duree' => $duree,
-            ':abreviation' => $abreviation,
-            ':RNCP_niveau' => $RNCP_niveau,
-            ':is_public' => $is_public,
+        return $stmt->execute([
+            ':name' => htmlspecialchars($name),
+            ':duree' => htmlspecialchars($duree),
+            ':abreviation' => htmlspecialchars($abreviation),
+            ':RNCP_niveau' => htmlspecialchars($RNCP_niveau),
+            ':is_public' => htmlspecialchars($is_public),
         ]);
     }
 
-    public static function delete($pdo, $id) {
+    public static function delete($pdo, $id)
+    {
         $sql = "DELETE FROM formations WHERE id = :id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
+        return $stmt->execute([
             ':id' => $id
         ]);
     }
-    
-    public static function update($pdo, $id, $name, $duree, $abreviation, $RNCP_niveau, $is_public)
+
+    public static function getFormationById($pdo, $id)
     {
-        $sql = "UPDATE formations SET name = :name, duree = :duree, abreviation = :abreviation, RNCP_niveau = :RNCP_niveau, is_public = :is_public WHERE id = :id";
+        $sql = "SELECT * FROM formations WHERE id = :id";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([
-            ':id' => $id,
-            ':name' => $name,
-            ':duree' => $duree,
-            ':abreviation' => $abreviation,
-            ':RNCP_niveau' => $RNCP_niveau,
-            ':is_public' => $is_public
-        ]);
+        $stmt->execute([':id' => $id]);
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            return null;
+        }
+
+        return new Formation($row['id'], $row['name'], $row['duree'], $row['abreviation'], $row['RNCP_niveau'], $row['is_public']);
     }
 
-    
-
-    public function getModules(){
-            $sql = "SELECT * FROM modules WHERE formation_id = :id";
+    public function update($pdo, $name, $duree, $abreviation, $RNCP_niveau, $is_public)
+    {
+        try {
+            $sql = "UPDATE formations SET name = :name, duree = :duree, abreviation = :abreviation, RNCP_niveau = :RNCP_niveau, is_public = :is_public WHERE id = :id";
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([':id' => $this->id]);
-            $modules = [];
-            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                $modules[] = new Module($row['id'], $row['name'], $row['duree'], $row['abreviation'], $row['RNCP_niveau'], $row['is_public']);
-            }
-            return $modules;
+            $stmt->execute([
+                ':id' => $this->id,
+                ':name' => $name,
+                ':duree' => $duree,
+                ':abreviation' => $abreviation,
+                ':RNCP_niveau' => $RNCP_niveau,
+                ':is_public' => $is_public
+            ]);
+
+            return true; // Update successful
+        } catch (PDOException $e) {
+            // Log or handle the error appropriately
+            // For example, you can log the error to a file or output it for debugging
+            error_log("Error updating formation: " . $e->getMessage());
+            return false; // Update failed
         }
+    }
+
+    public static function renderForm($type,  $existingFormation = null)
+    {
+        $name = $existingFormation !== null ? $existingFormation->getName() : '';
+        $duree = $existingFormation !== null ? $existingFormation->getduree() : '';
+        $abreviation = $existingFormation !== null ? $existingFormation->getAbreviation() : '';
+        $RNCP_niveau = $existingFormation !== null ? $existingFormation->getRNCP_niveau() : '';
+        $is_public = $existingFormation !== null ? $existingFormation->getis_public() : '';
+    
+        return include '../includes/form.php';
+    }
+    
 }
-
-
-?>
 
