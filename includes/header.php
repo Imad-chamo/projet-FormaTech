@@ -9,20 +9,20 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand ml-auto mr-6" href="formation_list.php"><img src="../imgs/logo.png" alt="" style="width: 100px; height: 100px;"></a>
+  <a class="navbar-brand ml-auto mr-6" href="../Formations/formation_list.php"><img src="../imgs/logo.png" alt="" style="width: 100px; height: 100px;"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto mr-6">
       <li class="nav-item active mr-4">
-        <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="../Formations/Formation_list.php">les formations <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item mr-4">
-        <a class="nav-link" href="#">À propos</a>
+        <a class="nav-link" href="../promotions/Promotions_list.php">les promotions</a>
       </li>
       <li class="nav-item mr-4">
-        <a class="nav-link" href="#">Services</a>
+        <a class="nav-link" href="../modules/modules_list.php">Les modules</a>
       </li>
       <li class="nav-itemmr-4">
         <a class="nav-link" href="#">Contact</a>

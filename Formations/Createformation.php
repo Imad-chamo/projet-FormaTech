@@ -1,4 +1,5 @@
 <?php
+
 $titre = 'Création de fromation';
 include '../includes/header.php';
 

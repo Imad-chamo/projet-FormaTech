@@ -22,6 +22,7 @@ $formations = Formation::getAll($pdo);
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php foreach ($formations as $formation) : ?>
                         <tr>
                             <td><?= $formation->getId() ?></td>
@@ -45,6 +46,5 @@ $formations = Formation::getAll($pdo);
         </div>
     </div>
 </div>
-
 
 <?php include '../includes/footer.php'; ?>

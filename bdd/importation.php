@@ -3,7 +3,8 @@ include 'datas.php';
 include 'config.php';
 
 try {
-    $pdo = Database::getPDO();
+    $pdo = new PDO('mysql:host=localhost;dbname=Formatech;charset=utf8mb4', 'root', '');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     $errors = false;
 
@@ -31,4 +32,6 @@ try {
     echo "Error: " . $e->getMessage();
 }
 ?>
+
+
 

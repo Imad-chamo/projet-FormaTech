@@ -14,7 +14,7 @@ class Formation
     private $moduleIds;
     
 
-    public function __construct($id, $name, $duree, $abreviation, $RNCP_niveau, $is_public,)
+    public function __construct($id, $name, $duree, $abreviation, $RNCP_niveau, $is_public)
     {
         $this->id = $id;
         $this->name = $name;
@@ -22,15 +22,30 @@ class Formation
         $this->abreviation = $abreviation;
         $this->RNCP_niveau = $RNCP_niveau;
         $this->is_public = $is_public;
+        // On initialise le tableau des id de module à vide pour ajouter les modules par la suite
+        
+        
     }
-    public function getModulesList($pdo) {
-        $modules = ModuleFormation::getModuleByFormation($pdo, $this->getId());
-    
+    /**
+     * Retourne les modules de la formation sous forme de chaine de caractères
+     *
+     * @param PDO $pdo
+     * @return string
+     */
+    public function getModules($pdo) {
         $moduleNames = [];
-        foreach ($modules as $module) {
-            $moduleNames[] = $module->getNom();
+
+        foreach ($this->moduleIds as $moduleId) {
+            $sql = "SELECT name FROM modules WHERE id = :module_id";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([':module_id' => $moduleId]);
+
+            $moduleName = $stmt->fetch(PDO::FETCH_COLUMN);
+            if ($moduleName) {
+                $moduleNames[] = $moduleName;
+            }
         }
-    
+
         return implode(', ', $moduleNames);
     }
 
@@ -42,19 +57,22 @@ class Formation
         $formations = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $moduleIds = ModuleFormation::getModuleForFormation($pdo, $row['id']);
-        $modules = [];
-        foreach ($moduleIds as $moduleId) {
-            $modules[] = ModuleFormation::getFormationForModule($pdo, $moduleId);
-        }
-            $formations[] = new Formation(
+            // Création de la formation
+            $formation = new Formation(
                 $row['id'],
                 htmlspecialchars($row['name']),
                 htmlspecialchars($row['duree']),
                 htmlspecialchars($row['abreviation']),
                 htmlspecialchars($row['RNCP_niveau']),
-                htmlspecialchars($row['is_public'])
+                htmlspecialchars($row['is_public']),
             );
+
+            // On récupère les modules correspondant à la formation
+            $moduleIds = ModuleFormation::getModuleForFormation($pdo, $formation->id);
+            $formation->moduleIds = $moduleIds;
+
+            // On l'ajoute au tableau de formations
+            $formations[] = $formation;
         }
 
         return $formations;
@@ -111,10 +129,9 @@ class Formation
     {
         $sql = "DELETE FROM formations WHERE id = :id";
         $stmt = $pdo->prepare($sql);
-        return $stmt->execute([
-            ':id' => $id
-        ]);
+        return $stmt->execute([':id' => htmlspecialchars($id)]);
     }
+    
 
     public static function getFormationById($pdo, $id)
     {

@@ -6,9 +6,11 @@ class Module {
     private $formationIds;  // Utilise un tableau pour stocker les IDs des formations
 
     public function __construct($id, $nom, $duree, $formationIds) {
+
         $this->id = $id;
         $this->nom = $nom;
         $this->duree = $duree;
+
         $this->formationIds = $formationIds;
     }
 
@@ -64,22 +66,26 @@ class Module {
     }
 
     public static function getAll($pdo) {
+
         $sql = "SELECT * FROM modules";
         $stmt = $pdo->query($sql);
 
         $modules = [];
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
             $formationIds = ModuleFormation::getFormationForModule($pdo, $row['id']);
             $modules[] = new Module(
                 $row['id'],
                 htmlspecialchars($row['nom']),
                 htmlspecialchars($row['duree']),
                 $formationIds
+
             );
         }
 
         return $modules;
     }
+
 }
 ?>
