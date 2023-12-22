@@ -8,6 +8,7 @@ class Employe {
     private $poste;
     private $mail;
 
+
     public function __construct($id, $prenom, $nom, $poste, $mail) {
         $this->id = $id;
         $this->prenom = $prenom;
@@ -15,6 +16,8 @@ class Employe {
         $this->poste = $poste;
         $this->mail = $mail;
     }
+
+    
 }
 
 
